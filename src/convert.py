@@ -11,7 +11,7 @@ questions = [
       choices=['Yes', 'No']
    ),
    inquirer.Path('output', 
-      message='Where should the created note be located?',
+      message='Where should the created note be located (relative to here)?}',
       path_type=inquirer.Path.DIRECTORY
    ),
    inquirer.Text('filename', 
@@ -28,3 +28,5 @@ answers = inquirer.prompt(questions)
 
 if answers['type'] == 'Yes':
    from_text(answers['text'], answers['filename'], answers['output'])
+if answers['type'] == 'No':
+   print('File types are not yet supported')
