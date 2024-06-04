@@ -10,23 +10,26 @@ questions = [
       message="Are you converting a raw text?",
       choices=['Yes', 'No']
    ),
-   inquirer.Path('output', 
-      message='Where should the created note be located (relative to here)?}',
-      path_type=inquirer.Path.DIRECTORY
-   ),
    inquirer.Text('filename', 
       message="What should the file be named?",
       default='markdown-note.md'
    ),
-   inquirer.Text('text', 
-      message='The markdown text',
-      default=''
-   )
+   inquirer.Path('output', 
+      message='Relative path this file will be saved in.',
+      path_type=inquirer.Path.DIRECTORY
+   ),
 ]
 
 answers = inquirer.prompt(questions)
 
 if answers['type'] == 'Yes':
-   from_text(answers['text'], answers['filename'], answers['output'])
+   test_questions = [
+      inquirer.Text('text', 
+         message='The markdown text',
+         default=''
+      )
+   ]
+   text_answer = inquirer.prompt(test_questions)
+   from_text(text_answer['text'], answers['filename'], answers['output'])
 if answers['type'] == 'No':
    print('File types are not yet supported')
